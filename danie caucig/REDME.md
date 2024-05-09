@@ -1,1 +1,1 @@
-
+stampo hello world
