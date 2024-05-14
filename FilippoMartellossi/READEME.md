@@ -1,4 +1,4 @@
-**Libreria Liste:**
+**Libreria Liste:** (****, Grassetto)
 
 Codice base per libreria liste
 
