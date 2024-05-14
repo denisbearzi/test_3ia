@@ -191,9 +191,12 @@ LA COMUNITÀ LINUX E UNA CARRIERA NELL’OPEN SOURCE:
    3. termine installazione
 
 	$ figlet Awesome!
+
+
+ 
   	
    	 _                               
-  	/ \__      _____ ___  ___  _ __ ___   ___       
+	/ \__      _____ ___  ___  _ __ ___   ___       
        / _ \ \ /\ / /_ \/ __|/ _ \| '_ ` _ \ / _ \ 
       / ___ \ V  V / __/\__ \ (_) | | | | | |  __/
      /_/   \_\_/\_/\___||___/\___/|_| |_| |_|\___
