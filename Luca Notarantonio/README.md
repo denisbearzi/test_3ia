@@ -1,5 +1,3 @@
-##QuickSort
-
-#Linguaggio
+QuickSort
 
 Scritto in C
