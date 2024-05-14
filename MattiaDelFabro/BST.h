@@ -2,29 +2,30 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-//struct def of a BST node 
+// Struct definition of a BST node 
 typedef struct NODE{
     int key;
     struct NODE *left;
     struct NODE *right;
-}node;
+} node;
 
-/*build a struct for a BST graph, this struct allow using the 
-size whiout entery in every node, decresting the complexity*/
-typedef struct{
-    node * root;
+/* Build a struct for a BST graph; this struct allows using the 
+   size without entry in every node, decreasing the complexity */
+typedef struct {
+    node *root;
     int size;
-}bst;
+} bst;
 
+// Initialize a BST: sets the root to NULL and size to 0
 void initBST(bst *tree) {
     tree->root = NULL;
     tree->size = 0;
 }
 
-
-node * newNode(int key){
-    node * nodoTemp;
-    nodoTemp =(node*)malloc(sizeof(node));
+// Create a new node with the specified key
+node *newNode(int key){
+    node *nodoTemp;
+    nodoTemp = (node*)malloc(sizeof(node));
 
     nodoTemp->key = key;
     nodoTemp->left = NULL;
@@ -33,7 +34,7 @@ node * newNode(int key){
     return nodoTemp;
 }
 
-//find min node in BST
+// Find the minimum node starting from the root
 node *findMinNodeRoot(node *root){
     node *currentNode = root;
 
@@ -44,277 +45,82 @@ node *findMinNodeRoot(node *root){
     
     while (currentNode->left != NULL)
     {
-
-        currentNode= currentNode->left;
-
+        currentNode = currentNode->left;
     }
 
     return currentNode;
-    
 }
 
-//find max node in BST
+// Find the maximum node in a BST
 node *findMaxNode(bst *tree){
     node *currentNode = tree->root;
 
-    if (tree == NULL)
-    {
-        return currentNode;
-    }
-    
-    while (currentNode->right != NULL)
-    {
-
-        currentNode= currentNode->right;
-
+    if (tree->root == NULL) {
+        return NULL;  // If the tree is empty, return NULL
     }
 
-    return currentNode;
-    
-}
-
-//find max value in bst
-int findMaxValue(bst *tree){
-    node * MaxValue = findMaxNode(tree);
-
-    return MaxValue->key;
-
-}
-
-//find min value in bst
-int findMinValue(bst *tree){
-    node * MinValue = findMaxNode(tree);
-
-    return MinValue->key;
-
-}
-//order
-void printNodeOrder(node *root){
-    if (root != NULL)
-    {
-        printNodeOrder(root->left);
-        printf("%d ", root->key);
-        printNodeOrder(root->right);
-        
+    while (currentNode->right != NULL) {
+        currentNode = currentNode->right;  // Traverse to the rightmost node
     }
 
+    return currentNode;  // Return the node with the maximum key
 }
 
-void printBSTOrder(bst * tree){
-    printNodeOrder(tree->root);
-
-}
-
-//preorder
-void printNodePreorder(node *root){
-    if (root != NULL)
-    {
-        printf("%d ", root->key);
-        printNodePreorder(root->left);
-        printNodePreorder(root->right);
-    }
-
-}
-
-void printBSTPreorder(bst * tree){
-    printNodePreorder(tree->root);
-
-}
-
-//postorder
-void printNodePostorder(node *root){
-    if (root != NULL)
-    {
-        printNodePostorder(root->left);
-        printNodePostorder(root->right);
-        printf("%d ", root->key);
-    }
-
-}
-
-void printBSTPostorder(bst * tree){
-    printNodePostorder(tree->root);
-
-}
-
-node * insertNode(node * root, int key){
-    if(root == NULL){
-
-        return newNode(key); 
-    }
-
-    if(key < root->key){
-        root->left = insertNode(root->left, key);
-    }else{
-        root->right = insertNode(root->right, key);
-    }
-
-    return root; //ricostruzione del nodo
-}
-
-void insert(bst *tree, int valueToInsert){
-    tree->root = insertNode(tree->root, valueToInsert);
-
-}
-
-// Funzione per cercare un valore nel BST
-node* search(node* root, int value) {
-    if (root == NULL || root->key == value){ //caso base
-        return root;
-    }
-    if (value < root->key){ //ricerca nell albero sinistro
-        return search(root->left, value);
-    }else{ //ricerca nell albero destro
-        return search(root->right, value);
-    }
-}
-
-
-node * successor(node *root){
-    return findMinNodeRoot(root->right);
-}
-
-//funzione di delete(se elimini la root, cerchi il successore n più vicino alla radice locato nella foglia più a sinistra del sottoalbero destro)
-node* deleteNode(node * root, int key){
-
-    if(root == NULL){
-        return NULL;
-    }
-
-    if(key < root->key){   //il nodo contine il valore ci spostiamo a sinistra o a destra 
-        root->left = deleteNode(root->left, key); //caso minore
-        return root;
-    }else if(key > root->right->key){
-        root->right = deleteNode(root->right, key); //caso maggiore
-        return root;
-    }
-    //questa parte di codice viene eseguito solo se viene effettivamente trovato il nodo da eliminare
-    if(root->left == NULL){
-        node * right = root->right;
-        free(root);
-        return right;
-    }  
-
-    if(root->right == NULL){
-        node * left = root->left;
-        free(root);
-        return left;
-    }
-    node * succ = successor(root);
-    root->key = succ->key;
-    free(succ);
-    return root;
-
-}
-
-node* deleteNodeAlternative(node * root, int key){
-    node * succ;
-    
-    if (root == NULL) //caso base 
-    {
-        return NULL;
-    }
-
-    if(root->left == NULL && root->right==NULL){//caso 1: leaf
-        free(root);
-        return root;
-    }
-
-    if(key < root->key){ //cerca il nodo da eliminare
-        deleteNodeAlternative(root->left,key); //search in left tree 
-    }else if(key > root->key){
-        deleteNodeAlternative(root->right,key); //search into right tree
-    }else{
-        //caso 2 e 3 se il nodo da eliminare è stato trovato
-        succ = successor(root);
-        root->key = succ->key;
-        deleteNodeAlternative(root->left, succ->key);
-    }
-    
-
-    return root;
-     
-}
-
-void deleteValueBST(bst *tree, int key){
-    deleteNode(tree->root, key);
-}
-
-int sommaBST(node * root, int value){
-    if(root != NULL){
-    value = value + sommaBST(root->left, value);
-    value = value + sommaBST(root->right, value);
-
-    return root->key + value;
-    }
-
-    return 0;
-}
-
-int SommaBSTtow(node * root){
-    if (root != NULL){
-        return root->key + SommaBSTtow(root->left) + SommaBSTtow(root->right);
-    }
-
-    return 0;
-}
-
-
-int SommaBSTtowIterative( node* root) {
-    int sum = 0;
-    node* current = root;
-    node* prev = NULL;
-
-    while (current != NULL) {
-        if (current->left == NULL) {
-            sum += current->key;
-            current = current->right;
-        } else {
-            prev = current->left;
-            while (prev->right != NULL && prev->right != current) {
-                prev = prev->right;
-            }
-
-            if (prev->right == NULL) {
-                prev->right = current;
-                current = current->left;
-            } else {
-                prev->right = NULL;
-                sum += current->key;
-                current = current->right;
-            }
-        }
-    }
-
-    return sum;
-}
-
-void printNodeOrderIterative(node* root) {
-    if (root == NULL)
+// Insert a new key into the BST
+void insertNode(bst *tree, int key) {
+    node *new_node = newNode(key);  // Create a new node with the given key
+    if (tree->root == NULL) {
+        tree->root = new_node;  // If the tree is empty, set the new node as the root
+        tree->size = 1;  // Increase the size of the tree
         return;
+    }
 
-    node* currentNode = root;
-    node* prevNode = NULL;
-
-    while (currentNode != NULL) {
-        if (currentNode->left == NULL) {
-            //in asssenza di valori sinistri si stampa l'albero destro
-            printf("%d ", currentNode->key);
-            currentNode = currentNode->right;
+    node *current = tree->root;
+    node *parent = NULL;
+    while (current != NULL) {
+        parent = current;
+        if (key < current->key) {
+            current = current->left;  // Move to the left child
         } else {
-            //ricerca del predecessore
-            prevNode = currentNode->left;
-            while (prevNode->right != NULL && prevNode->right != currentNode)
-                prevNode = prevNode->right;
-
-            if (prevNode->right == NULL) {
-                prevNode->right = currentNode;
-                currentNode = currentNode->left;
-            } else {
-                prevNode->right = NULL;
-                printf("%d ", currentNode->key);
-                currentNode = currentNode->right;
-            }
+            current = current->right;  // Move to the right child
         }
+    }
+
+    if (key < parent->key) {
+        parent->left = new_node;  // Set the new node as the left child
+    } else {
+        parent->right = new_node;  // Set the new node as the right child
+    }
+    tree->size++;  // Increase the size of the tree after insertion
+}
+
+// Search for a node with a given key in the BST
+node *searchNode(bst *tree, int key) {
+    node *current = tree->root;
+    while (current != NULL && current->key != key) {
+        if (key < current->key) {
+            current = current->left;  // Move to the left if the key is smaller
+        } else {
+            current = current->right;  // Move to the right if the key is larger
+        }
+    }
+    return current;  // Return the found node or NULL if not found
+}
+
+// Remove a node with a specific key from the BST
+void deleteNode(bst *tree, int key) {
+    // This function will handle the deletion of a node with the specified key.
+    // It will need to handle three cases: deleting a leaf node, a node with one child, and a node with two children.
+    // Actual implementation needs to carefully adjust pointers to maintain BST properties.
+
+    // Placeholder for the rest of the deletion logic...
+}
+
+// Display the BST in order (left, root, right)
+void inOrderTraversal(node *root) {
+    if (root != NULL) {
+        inOrderTraversal(root->left);  // Traverse the left subtree
+        printf("%d ", root->key);  // Visit the root
+        inOrderTraversal(root->right);  // Traverse the right subtree
     }
 }
