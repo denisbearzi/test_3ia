@@ -1,3 +1,4 @@
-QuickSort
+# QuickSort
 
+## Linguaggio
 Scritto in C
