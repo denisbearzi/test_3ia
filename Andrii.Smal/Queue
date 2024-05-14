@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdbool.h>
+#define SIZE 5
+
+// Define global variables for the queue
+int items[SIZE], front = -1, rear = -1;
+
+// Function to check if the queue is full
+bool isFull(){
+	return rear == SIZE - 1;
+}
+
+// Function to check if the queue is empty
+bool isEmpty(){
+	return front == -1;
+}
+
+// Function to insert an element into the queue
+void enQueue(int value) {
+	if (isFull()){
+		printf("\nQueue is full");
+	} else {
+		// If the queue is empty, set the front to 0
+		if (isEmpty())
+			front = 0;
+		
+		// Increment rear and insert the value
+		rear += 1;
+		items[rear] = value;
+		printf("Inserted -> %d", value);	
+	}
+}
+
+// Function to remove an element from the queue
+void deQueue(){
+	if (isEmpty()){
+		printf("\nQueue is Empty");
+	} else {
+		// Print and remove the front element
+		printf("Deleted : %d,", items[front]);
+		front += 1;
+		// If front surpasses rear, reset front and rear to -1
+		if(front > rear)
+			front = rear = -1;
+	}
+}
+
+// Function to print all elements in the queue
+void printQueue(){
+	if (isEmpty()){
+		printf("Queue is Empty");
+	} 
+	else {
+		printf("\nQueue elements are:\n");
+		for (int i = front; i <= rear; i++)
+			printf("%d ", items[i]); 	
+	}
+	printf("\n");
+}
+
+// Main function
+int main(){
+	// Function declarations moved here (although not necessary)
+	void enQueue(int);
+	void deQueue();
+	void printQueue();
+}
+
+
