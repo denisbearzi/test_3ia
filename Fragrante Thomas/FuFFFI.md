@@ -1,1 +1,0 @@
-fuffi datti all'ippica
