@@ -1,28 +1,28 @@
-LINUX
+#LINUX
 
    COSA FAREMO:
 
-      ARGOMENTO 1: LA COMUNITÀ LINUX E UNA CARRIERA NELL’OPEN SOURCE                                            kernel(quello che divide il disco dal SO)
-	 1.1 Evoluzione di Linux e Sistemi Operativi più Diffusi
+      ##ARGOMENTO 1: LA COMUNITÀ LINUX E UNA CARRIERA NELL’OPEN SOURCE                                            kernel(quello che divide il disco dal SO)
+	 ###1.1 Evoluzione di Linux e Sistemi Operativi più Diffusi
 	      • Distribuzioni
 	      • Sistemi Integrati
 	      • Linux nel Cloud
- 	 1.2 Principali Applicazioni Open Source
+ 	 ###1.2 Principali Applicazioni Open Source
 	      • Applicazioni desktop
 	      • Applicazioni server
 	      • Linguaggi di sviluppo
 	      • Strumenti di gestione dei pacchetti e repository     
-	 1.4 Competenze ICT - Lavorare con Linux
+	 ###1.4 Competenze ICT - Lavorare con Linux
 
       
 
 
 
-LA COMUNITÀ LINUX E UNA CARRIERA NELL’OPEN SOURCE:
+#LA COMUNITÀ LINUX E UNA CARRIERA NELL’OPEN SOURCE:
 
- 1.1 Evoluzione di Linux e Sistemi Operativi più Diffusi 
+ ##1.1 Evoluzione di Linux e Sistemi Operativi più Diffusi 
 
-   STORIA DI LINUX:
+   ###STORIA DI LINUX:
 
   Il suo sviluppo è stato avviato nel 1991 da Linus. Tale sistema operativo è stato ispirato da Unix.
   A quel tempo, un sistema Unix economico non era ancora disponibile per computer come quelli da ufficio,
